@@ -1,3 +1,13 @@
-export const potatoid = (len: number = 10, base: number = 36): string =>
-  crypto.getRandomValues(new Uint8Array(len))
-    .reduce((s,b) => s + (b % base).toString(base), '');
+export const potatoid = (len: number=10, b: number|string=36, c?: string): string =>
+  crypto
+    .getRandomValues(new Uint8Array(len))
+    .reduce(
+      (s, x) => 
+        s + 
+        (typeof b === 'string' 
+         ? b[x % b.length] 
+         : c 
+         ? c[x % c.length] 
+         : (x % (b = Math.min(Math.max(b, 2),36))).toString(b)), 
+      ""
+    );
