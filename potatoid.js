@@ -10,4 +10,4 @@ export const potatoid = (len = 10, b = 36, c) =>
           ? c[x % c.length]
           : (x % (b = Math.min(Math.max(b, 2), 36))).toString(b)),
       ""
-    )
+    );
