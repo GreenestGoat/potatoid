@@ -19,12 +19,12 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "dist/potato.js",
-  "module": "dist/potato.js",
+  "main": "dist/potatoid.min.js",
+  "module": "dist/potatoid.min.js",
   "exports": {
     ".": {
-      "import": "./dist/potato.js",
-      "default": "./dist/potato.js"
+      "import": "./dist/potatoid.min.js",
+      "default": "./dist/potatoid.min.js"
     }
   },
   "devDependencies": {
