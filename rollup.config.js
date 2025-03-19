@@ -26,6 +26,7 @@ const babelConfig = {
 };
 
 export default [
+  // ESM Build
   {
     input: "src/potatoid.ts",
     output: {
@@ -62,12 +63,78 @@ export default [
       moduleSideEffects: false,
     },
   },
+  // Minified ESM Build
   {
     input: "src/potatoid.ts",
     output: {
       file: "dist/potatoid.min.js",
       format: "es",
       sourcemap: true,
+    },
+    cache: true,
+    plugins: [
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        preventAssignment: true,
+      }),
+      typescript(),
+      nodeResolve(),
+      babel(babelConfig),
+      versionInjector({
+        injectInComments: {
+          fileRegexp: /\.(js|ts)$/,
+          tag: "potatoid @{version}",
+        },
+      }),
+      minify({
+        minify: true,
+        legalComments: "none",
+        logLevel: "warning",
+      }),
+      optimizeJs(),
+    ],
+    treeshake: {
+      moduleSideEffects: false,
+    },
+  },
+  // CommonJS Build
+  {
+    input: "src/potatoid.ts",
+    output: {
+      file: "dist/potatoid.cjs",
+      format: "cjs",
+      sourcemap: true,
+      exports: "auto",
+    },
+    cache: true,
+    plugins: [
+      replace({
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        preventAssignment: true,
+      }),
+      typescript(),
+      nodeResolve(),
+      babel(babelConfig),
+      versionInjector({
+        injectInComments: {
+          fileRegexp: /\.(js|ts)$/,
+          tag: "potatoid @{version}",
+        },
+      }),
+      optimizeJs(),
+    ],
+    treeshake: {
+      moduleSideEffects: false,
+    },
+  },
+  // Minified CommonJS Build
+  {
+    input: "src/potatoid.ts",
+    output: {
+      file: "dist/potatoid.min.cjs",
+      format: "cjs",
+      sourcemap: true,
+      exports: "auto",
     },
     cache: true,
     plugins: [
