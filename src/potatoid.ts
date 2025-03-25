@@ -1,4 +1,5 @@
-let potatoid = (l: number = 10, b: string | number = 36): string =>
+let c = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+let potatoid = (l: number = 10, b: string | number = c): string =>
   crypto
     .getRandomValues(new Uint8Array(l))
     .reduce(
