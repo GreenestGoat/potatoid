@@ -1,18 +1,12 @@
-let potatoid = (
-  len: number = 10,
-  b: number | string = 36,
-  c?: string
-): string =>
+let potatoid = (l: number = 10, b: string | number = 36): string =>
   crypto
-    .getRandomValues(new Uint8Array(len))
+    .getRandomValues(new Uint8Array(l))
     .reduce(
       (s, x) =>
         s +
-        (typeof b === "string"
-          ? b[x % b.length]
-          : c
-            ? c[x % c.length]
-            : (x % (b = Math.min(Math.max(b, 2), 36))).toString(b)),
+        (typeof b === "string" && b.trim()
+          ? (b = b.replace(/\s+/g, ""))[x % b.length]
+          : (x % (b = Math.min(Math.max(+b || 36, 2), 36))).toString(b)),
       ""
     );
 
